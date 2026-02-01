@@ -32,6 +32,9 @@
     --color-chart-primary: #0AE98A; 
     --color-chart-secondary: #38F2B1;
 
+    /*font*/
+    --font-sans: Manrope, system-ui, sans-serif;
 
-
+    /*example of usage: font-sans font-[var(--title-h1)]*/
+    ---title-h1: 800 3rem / 1.15;
 }

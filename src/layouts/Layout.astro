@@ -1,4 +1,6 @@
 ---
+import "@fontsource/manrope";
+
 import '../styles/global.css'
 
 interface Props {
@@ -14,7 +16,7 @@ interface Props {
         <meta name="description" content={Astro.props.description} />
 		<title>{Astro.props.title}</title>
 	</head>
-	<body class="bg-bg">
+	<body class="bg-bg-main">
 		<slot />
 	</body>
 </html>
