@@ -3,15 +3,16 @@ import Profile from '../components/aside_components/Profile.astro';
 import Skills from '../components/aside_components/Cards/Skills.astro';
 import Strenghts from '../components/aside_components/Cards/Strenghts.astro';
 import Focus from '../components/aside_components/Cards/Focus.astro';
-
+import Footer from '../components/aside_components/Footer.astro';
 ---
 
 
 <aside class="w-81 h-screen flex flex-col gap-1 bg-bg-surface overflox-none">
     <Profile />
-    <div class="w-full h-full flex flex-col justify-between">
+    <div class="w-full h-full flex flex-col justify-start">
         <Focus />
         <Skills />
         <Strenghts />
     </div>
+    <Footer />
 </aside>
