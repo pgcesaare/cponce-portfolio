@@ -8,9 +8,9 @@
     --color-bg-elevated: #162447;
 
     /*text*/
-    --color-text-primary: #E5E7EB;
-    --color-text-secondary: #B0B0B0;
-    --color-text-muted: #64748B;
+    --color-primary: #E5E7EB;
+    --color-secondary: #B0B0B0;
+    --color-muted: #64748B;
 
     /*accent*/
     --color-accent-primary: #0AE98A;
@@ -35,6 +35,36 @@
     /*font*/
     --font-sans: Manrope, system-ui, sans-serif;
 
-    /*example of usage: font-sans font-[var(--title-h1)]*/
-    ---title-h1: 800 3rem / 1.15;
+    /*title h1*/
+    --text-title-h1: 3rem;
+    --text-title-h1--line-height: 1.15;
+    --text-title-h1--font-weight: 800;
+
+    /*title h2*/
+    --text-title-h2: 2rem;
+    --text-title-h2--line-height: 1.15;
+    --text-title-h2--font-weight: 700;
+
+    /*subtitle h3*/
+    --text-title-h3: 1.5rem;
+    --text-title-h3--line-height: 1.15;
+    --text-title-h2--font-weight: 600;
+
+    /*principal text*/
+    --text-principal-text: 1rem;
+    --text-principal-text--line-height: 1.15;
+    --text-principal-text--font-weight: 500;
+
+    /*secondary text*/
+    --text-secondary-text: 0.8rem;
+    --text-secondary-text--line-height: 1.15;
+    --text-secondary--font-weight: 500;
+
+    /*text-button*/
+    --text-button: 1rem;
+    --text-button--line-height: 1.15;
+    --text-button--font-weight: 600;
+    
+
+    
 }
