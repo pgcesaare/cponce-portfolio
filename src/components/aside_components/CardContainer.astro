@@ -1,0 +1,12 @@
+---
+interface Props {
+    title: string;
+}
+---
+
+<div class="w-full h-fit px-4.5 py-5.5 flex flex-col gap-3">
+    <p class="text-principal-text text-accent-primary">{Astro.props.title}</p>
+    <div class="w-full h-full flex items-center">
+        <slot />
+    </div>  
+</div>

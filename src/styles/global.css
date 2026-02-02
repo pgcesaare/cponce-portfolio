@@ -37,33 +37,38 @@
 
     /*title h1*/
     --text-title-h1: 3rem;
-    --text-title-h1--line-height: 1.15;
+    --text-title-h1--line-height: 1.2;
     --text-title-h1--font-weight: 800;
 
     /*title h2*/
     --text-title-h2: 2rem;
-    --text-title-h2--line-height: 1.15;
+    --text-title-h2--line-height: 1.2;
     --text-title-h2--font-weight: 700;
 
     /*subtitle h3*/
     --text-title-h3: 1.5rem;
-    --text-title-h3--line-height: 1.15;
+    --text-title-h3--line-height: 1.2;
     --text-title-h2--font-weight: 600;
 
     /*principal text*/
     --text-principal-text: 1rem;
-    --text-principal-text--line-height: 1.15;
+    --text-principal-text--line-height: 1.2;
     --text-principal-text--font-weight: 500;
 
     /*secondary text*/
     --text-secondary-text: 0.8rem;
-    --text-secondary-text--line-height: 1.15;
-    --text-secondary--font-weight: 500;
+    --text-secondary-text--line-height: 1.2;
+    --text-secondary-text--font-weight: 500;
 
     /*text-button*/
     --text-button: 1rem;
-    --text-button--line-height: 1.15;
+    --text-button--line-height: 1.2;
     --text-button--font-weight: 600;
+
+    /*bullets*/
+    --text-bullets: 1rem;
+    --text-bullets--line-height: 1.2;
+    --text-bullets--font-weight: 300;
     
 
     

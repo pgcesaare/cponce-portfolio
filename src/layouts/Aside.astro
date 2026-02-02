@@ -1,3 +1,17 @@
-<aside class="w-81 h-screen bg-bg-surface">
-    
+---
+import Profile from '../components/aside_components/Profile.astro';
+import Skills from '../components/aside_components/Cards/Skills.astro';
+import Strenghts from '../components/aside_components/Cards/Strenghts.astro';
+import Focus from '../components/aside_components/Cards/Focus.astro';
+
+---
+
+
+<aside class="w-81 h-screen flex flex-col gap-1 bg-bg-surface overflox-none">
+    <Profile />
+    <div class="w-full h-full flex flex-col justify-between">
+        <Focus />
+        <Skills />
+        <Strenghts />
+    </div>
 </aside>
