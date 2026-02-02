@@ -1,10 +1,17 @@
 ---
 
 import Layout from '../layouts/Layout.astro';
+import Aside from '../layouts/Aside.astro';
+import Content from '../layouts/Content.astro';
+import Section from '../layouts/Section.astro';
 
 ---
 
 <Layout
 	title="Cesar Ponce | Portfolio"
-	description='This is my portfolio'>
+	description='This is my portfolio'
+	>
+		<Aside />
+		<Content />
+		<Section />
 </Layout>
