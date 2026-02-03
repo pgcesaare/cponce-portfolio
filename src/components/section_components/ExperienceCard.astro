@@ -1,0 +1,18 @@
+---
+interface Props {
+    title?: string;
+    period?: string;
+    role?: string;
+}
+---
+
+<div class="w-full h-53.5 py-4 flex flex-col gap-1.5 border-y border-border-default">
+    <div class="flex flex-col gap-0.5">
+        <div class="flex flex-row items-end justify-between">
+            <p class="text-principal-text text-primary">{Astro.props.title}</p>
+            <p class="text-secondary-text text-secondary">{Astro.props.period}</p>
+        </div>
+        <p class="text-principal-text text-accent-active">{Astro.props.role}</p>
+    </div>
+    <slot />
+</div>

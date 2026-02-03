@@ -66,10 +66,12 @@
     --text-button--font-weight: 600;
 
     /*bullets*/
-    --text-bullets: 1rem;
+    --text-bullets: 0.95rem;
     --text-bullets--line-height: 1.2;
     --text-bullets--font-weight: 300;
     
+}
 
-    
+.bold {
+    font-weight: 700;
 }
