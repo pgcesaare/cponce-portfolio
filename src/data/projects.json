@@ -1,0 +1,14 @@
+[
+    {  
+        "image": "./Example.jpg",
+        "title": "EcoFlow Urban Predictor Descripción",
+        "description": "Optimización de micro-movilidad inteligente mediante modelos predictivos e IoT. Analiza patrones de tráfico en tiempo real",
+        "tags": ["SQL", "Excel","Power BI", "Python"]
+    },
+    {
+        "image": "./Example2.jpg",
+        "title": "EcoFlow Urban Predictor Descripción",
+        "description": "Optimización de micro-movilidad inteligente mediante modelos predictivos e IoT. Analiza patrones de tráfico en tiempo real",
+        "tags": ["Tableau","Power BI", "Python"]        
+    }
+]

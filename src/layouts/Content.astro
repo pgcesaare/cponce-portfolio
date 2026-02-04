@@ -1,3 +1,25 @@
-<main class="flex-1 h-screen">
-    
+---
+import ContentItem from "../components/content_components/ContentItem.astro"
+import Chip from "../components/general/Chip.astro"
+import projects from '../data/projects.json'
+
+let chips = ['Excel','Power BI', 'Python', 'SQL', 'Excel','Power BI', 'Python']
+---
+
+
+
+<main class="max-w-125 min-w-125 h-screen flex flex-col flex-1 py-5.5 overflow-y-auto gap-5.5 no-scrollbar">
+    <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
+
+    {projects.map((p) => (
+    <ContentItem
+        image={p.image}
+        title={p.title}
+        description={p.description}
+    >
+        {p.tags.map((chip) => (
+        <Chip>{chip}</Chip>
+        ))}
+    </ContentItem>
+    ))}
 </main>
