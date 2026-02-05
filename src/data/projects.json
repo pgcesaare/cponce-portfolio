@@ -2,8 +2,8 @@
     {  
         "image": "./Example.jpg",
         "title": "EcoFlow Urban Predictor Descripción",
-        "description": "Optimización de micro-movilidad inteligente mediante modelos predictivos e IoT. Analiza patrones de tráfico en tiempo real",
-        "tags": ["SQL", "Excel","Power BI", "Python"]
+        "description": "La optimización de la micro-movilidad inteligente mediante modelos predictivos e Internet de las Cosas (IoT) se refiere al uso integrado de tecnologías avanzadas de análisis de datos, sensores conectados y algoritmos de predicción para mejorar la eficiencia, seguridad y sostenibilidad de los sistemas de transporte urbano a pequeña escala, como bicicletas compartidas, scooters eléctricos y vehículos ligeros.",
+        "tags": ["SQL", "Excel","Power BI", "Python", "GoogleSQL"]
     },
     {
         "image": "./Example2.jpg",

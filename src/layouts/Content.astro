@@ -1,9 +1,7 @@
 ---
-import ContentItem from "../components/content_components/ContentItem.astro"
+import ContentItem from "../components/content_components/ContentItem.jsx"
 import Chip from "../components/general/Chip.astro"
 import projects from '../data/projects.json'
-
-let chips = ['Excel','Power BI', 'Python', 'SQL', 'Excel','Power BI', 'Python']
 ---
 
 
@@ -12,7 +10,7 @@ let chips = ['Excel','Power BI', 'Python', 'SQL', 'Excel','Power BI', 'Python']
     <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
 
     {projects.map((p) => (
-    <ContentItem
+    <ContentItem client:load
         image={p.image}
         title={p.title}
         description={p.description}

@@ -1,6 +1,8 @@
+import React from 'react'
+
 const ChipContainerReact = ({children}) => {
     return (
-        <div class="w-full h-fit flex flex-wrap gap-2">
+        <div className="w-full h-fit flex flex-wrap gap-2">
             {children}
         </div>
     )
