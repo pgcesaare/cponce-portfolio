@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Aside from '../layouts/Aside.astro';
 import Content from '../layouts/Content.astro';
 import Section from '../layouts/Section.astro';
+import PostsCards from '../components/content_components/PostsCards.astro';
 
 ---
 
@@ -12,6 +13,8 @@ import Section from '../layouts/Section.astro';
 	description='This is my portfolio'
 	>
 		<Aside />
-		<Content />
+		<Content>
+			<PostsCards/>
+		</Content>
 		<Section />
 </Layout>

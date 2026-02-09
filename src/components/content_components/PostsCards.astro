@@ -1,0 +1,23 @@
+---
+import ChipReact from "./ChipReact";
+import ContentItem from "./ContentItem.jsx";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+---
+<div class="flex flex-col gap-5.5">
+    <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
+
+    {posts.map((p) => (
+    <ContentItem client:load
+        image={p.data.image}
+        title={p.data.title}
+        description={p.data.description}
+        href={`/blog/${p.slug}`}
+    >
+        {p.data.tags.map((chip) => (
+        <ChipReact>{chip}</ChipReact>
+        ))}
+    </ContentItem>
+    ))}
+</div>
