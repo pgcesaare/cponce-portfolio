@@ -1,7 +1,9 @@
 ---
-import ContentItem from "../components/content_components/ContentItem.jsx"
-import Chip from "../components/general/Chip.astro"
-import projects from '../data/projects.json'
+import ContentItem from "../components/content_components/ContentItem.jsx";
+import Chip from "../components/general/Chip.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
 ---
 
 
@@ -9,13 +11,14 @@ import projects from '../data/projects.json'
 <main class="max-w-125 min-w-125 h-screen flex flex-col flex-1 py-5.5 overflow-y-auto gap-5.5 no-scrollbar">
     <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
 
-    {projects.map((p) => (
+    {posts.map((p) => (
     <ContentItem client:load
-        image={p.image}
-        title={p.title}
-        description={p.description}
+        image={p.data.image}
+        title={p.data.title}
+        description={p.data.description}
+        href={`/blog/${p.slug}`}
     >
-        {p.tags.map((chip) => (
+        {p.data.tags.map((chip) => (
         <Chip>{chip}</Chip>
         ))}
     </ContentItem>
