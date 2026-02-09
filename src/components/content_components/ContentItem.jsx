@@ -9,7 +9,7 @@ const ContentItem = ({ image, title, description, children }) => {
     }
     return (
         <div className="w-full h-175 flex flex-col gap-2 cursor-pointer border-b border-border-default">
-            <div class="relative w-full h-125 mb-2 rounded-lg object-fill ">
+            <div className="relative w-full h-125 mb-2 rounded-lg object-fill ">
                 <div className="absolute inset-0 bg-bg-images z-10 rounded-lg"></div>
                 <img className="w-full h-full rounded-lg z-20 opacity-95 relative inset-0 " src={image} />
             </div>
