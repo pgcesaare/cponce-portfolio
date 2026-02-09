@@ -1,12 +1,10 @@
 ---
+import ChipReact from "../components/content_components/ChipReact";
 import ContentItem from "../components/content_components/ContentItem.jsx";
-import Chip from "../components/general/Chip.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog");
 ---
-
-
 
 <main class="max-w-125 min-w-125 h-screen flex flex-col flex-1 py-5.5 overflow-y-auto gap-5.5 no-scrollbar">
     <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
@@ -19,7 +17,7 @@ const posts = await getCollection("blog");
         href={`/blog/${p.slug}`}
     >
         {p.data.tags.map((chip) => (
-        <Chip>{chip}</Chip>
+        <ChipReact>{chip}</ChipReact>
         ))}
     </ContentItem>
     ))}
