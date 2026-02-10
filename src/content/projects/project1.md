@@ -28,6 +28,18 @@ ORDER BY total_heads DESC;
 
 ## Results: 
 
----
+![chart](../charts/chart.png)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis.
+
+```sql
+SELECT 
+    ranch_id,
+    COUNT(cattle_id) AS total_heads,
+    SUM(weight) AS total_weight,
+    AVG(feeding_days) AS avg_feeding_days
+FROM cattle_inventory
+WHERE status = 'Active'
+GROUP BY ranch_id
+ORDER BY total_heads DESC;
+```

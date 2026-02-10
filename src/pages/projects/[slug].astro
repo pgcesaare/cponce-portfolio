@@ -1,0 +1,94 @@
+---
+import type { GetStaticPaths, CollectionEntry } from "astro";
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
+import Aside from "../../layouts/Aside.astro";
+import ContentWrapper from "../../layouts/Content.astro";
+import Section from "../../layouts/Section.astro";
+import Chip from "../../components/general/Chip.astro";
+import ChipContainer from "../../components/general/ChipContainer.astro";
+import Line from "../../components/general/Line.astro";
+import BackButton from "../../components/general/BackButton.astro";
+
+type ProjectPost = CollectionEntry<"projects">;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await getCollection("projects");
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+};
+
+const { project } = Astro.props as { project: ProjectPost };
+const { Content } = await project.render();
+const { title, description, image, tags } = project.data;
+---
+
+<Layout title={title + " | Cesar Ponce"} description={description}>
+  <Aside />
+
+  <ContentWrapper>
+    <div class="flex flex-col gap-5.5">
+      
+      <BackButton />
+
+      <h1 class="text-title-h3 text-primary">{title}</h1>
+
+      <Line />
+
+      <p class="text-principal-text text-primary">
+        {description}
+      </p>
+
+      {image && (
+        <div class="w-full h-50 object-fill rounded-lg">
+          <img
+            class="w-full h-full rounded-lg"
+            src={image}
+            alt={title}
+          />
+        </div>
+      )}
+
+      <ChipContainer>
+        {tags.map((tag) => (
+          <Chip>{tag}</Chip>
+        ))}
+      </ChipContainer>
+
+      <div class="project-content">
+        <Content />
+      </div>
+
+    </div>
+  </ContentWrapper>
+
+  <Section />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".project-content pre").forEach((block) => {
+        const button = document.createElement("button");
+        button.innerText = "Copy";
+        button.className = "copy-btn";
+
+        button.addEventListener("click", async () => {
+          const code = block.querySelector("code");
+          if (!code) return;
+
+          await navigator.clipboard.writeText(code.innerText);
+
+          button.innerText = "Copied!";
+          setTimeout(() => (button.innerText = "Copy"), 1500);
+        });
+
+        block.style.position = "relative";
+        block.appendChild(button);
+      });
+    });
+  </script>
+
+</Layout>
