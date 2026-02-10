@@ -86,3 +86,54 @@
   scrollbar-width: none;
  }
 }
+
+.blog-content {
+    width: 100%;
+    color: #E5E7EB;
+    font-size: 1rem;
+    font-weight: 200;
+    line-height: 1.2rem;
+}
+
+.blog-content :is(h1, h2, h3) {
+    font-weight: 500;
+    margin: 22px 0px;
+}
+
+.blog-content p{
+    margin: 22px 0px;
+}
+
+/* Inline code */
+.blog-content code {
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Code block */
+.blog-content pre {
+    border: 1px solid #1E293B;
+    background-color: #162447 !important;
+    padding: 32px 12px 12px 12px ;
+    border-radius: 12px;
+    overflow-x: auto;
+    position: relative;
+}
+
+.blog-content hr {
+    border: none;
+    height: 1px;
+    margin: 22px 0px;
+    background-color: #1E293B;
+}
+
+.blog-content pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+}

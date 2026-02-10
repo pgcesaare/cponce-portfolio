@@ -6,6 +6,9 @@ import Layout from '../../layouts/Layout.astro';
 import Aside from '../../layouts/Aside.astro';
 import ContentWrapper from '../../layouts/Content.astro';
 import Section from '../../layouts/Section.astro';
+import Chip from '../../components/general/Chip.astro';
+import ChipContainer from '../../components/general/ChipContainer.astro';
+import Line from '../../components/general/Line.astro'
 
 type BlogPost = CollectionEntry<'blog'>;
 
@@ -30,8 +33,30 @@ const { Content } = await post.render();
   <Aside />
 
   <ContentWrapper>
-    <h1 class="text-primary text-principal-text">{post.data.title}</h1>
-    <Content />
+
+    <div class="flex flex-col gap-5.5">
+      <h1 class="text-title-h3 text-primary">{post.data.title}</h1>
+      <Line />
+      <p class="text-principal-text text-primary">{post.data.description}</p>
+
+      <div class="w-full h-50 object-fill rounded-lg">
+        <img class="w-full h-full rounded-lg" src={post.data.image} />
+      </div>
+      
+      <ChipContainer>{
+          post.data.tags.map((tag: string) => (
+            <Chip>{tag}</Chip>
+          ))
+        }
+      </ChipContainer>
+
+      <Line />
+
+      <div class="blog-content">
+        <Content />
+      </div>
+
+    </div>
   </ContentWrapper>
 
   <Section />
