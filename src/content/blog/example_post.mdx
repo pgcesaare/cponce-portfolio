@@ -1,0 +1,37 @@
+---
+image: "/Example.jpg"
+title: "How I Built My Cattle Inventory System from Scratch"
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis."
+date: 2026-02-09
+tags: ["Inventory", "Data Analysis", "Operations", "System Design"]
+---
+
+import Chart from "../charts/Chart.astro";
+
+# How I Built My Cattle Inventory System from Scratch
+
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis.
+
+```sql
+SELECT 
+    ranch_id,
+    COUNT(cattle_id) AS total_heads,
+    SUM(weight) AS total_weight,
+    AVG(feeding_days) AS avg_feeding_days
+FROM cattle_inventory
+WHERE status = 'Active'
+GROUP BY ranch_id
+ORDER BY total_heads DESC;
+```
+
+## Results: 
+
+<Chart />
+
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis.

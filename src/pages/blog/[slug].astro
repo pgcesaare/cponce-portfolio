@@ -9,6 +9,7 @@ import Section from '../../layouts/Section.astro';
 import Chip from '../../components/general/Chip.astro';
 import ChipContainer from '../../components/general/ChipContainer.astro';
 import Line from '../../components/general/Line.astro'
+import BackButton from '../../components/general/BackButton.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
 
@@ -35,6 +36,7 @@ const { Content } = await post.render();
   <ContentWrapper>
 
     <div class="flex flex-col gap-5.5">
+      <BackButton />
       <h1 class="text-title-h3 text-primary">{post.data.title}</h1>
       <Line />
       <p class="text-principal-text text-primary">{post.data.description}</p>
@@ -50,8 +52,6 @@ const { Content } = await post.render();
         }
       </ChipContainer>
 
-      <Line />
-
       <div class="blog-content">
         <Content />
       </div>
@@ -60,4 +60,25 @@ const { Content } = await post.render();
   </ContentWrapper>
 
   <Section />
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".blog-content pre").forEach((block) => {
+      const button = document.createElement("button");
+      button.innerText = "Copy";
+      button.className = "copy-btn";
+
+      button.addEventListener("click", async () => {
+        const code = block.querySelector("code");
+        await navigator.clipboard.writeText(code.innerText);
+
+        button.innerText = "Copied!";
+        setTimeout(() => (button.innerText = "Copy"), 1500);
+      });
+
+      block.style.position = "relative";
+      block.appendChild(button);
+    });
+  });
+</script>
 </Layout>
+
