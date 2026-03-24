@@ -4,9 +4,9 @@ import Linkedin from "../../assets/Linkedin.astro";
 import Email from "../../assets/Email.astro";
 
 const generalLinks = [
-    { label: "LinkedIn", Icon: Linkedin },
-    { label: "GitHub", Icon: Github },
-    { label: "Email", Icon: Email }
+    { label: "LinkedIn", Icon: Linkedin, url:"https://www.linkedin.com" },
+    { label: "GitHub", Icon: Github, url:"https://github.com" },
+    { label: "Email", Icon: Email, url:"https://google.com" }
 ];
 ---
 
@@ -14,15 +14,14 @@ const generalLinks = [
     <div class="flex flex-col gap-3">
         <div class="flex items-center justify-between gap-3">
             <p class="text-principal-text text-primary">Links</p>
-            <span class="text-secondary-text text-secondary">General</span>
         </div>
 
         <nav aria-label="Links generales" class="grid grid-cols-3 gap-2.5">
-            {generalLinks.map(({ label, Icon }) => (
-                <div class="flex flex-col items-center justify-center gap-2 rounded-xl border border-border-default bg-bg-elevated px-3 py-3 text-center transition-colors">
+            {generalLinks.map(({ label, Icon, url }) => (
+                <a href={url} class="cursor-pointer flex flex-col items-center justify-center gap-2 rounded-xl border border-border-default bg-bg-elevated px-3 py-3 text-center transition-colors">
                     <Icon class="h-5 w-5" />
                     <span class="text-secondary-text text-secondary">{label}</span>
-                </div>
+                </a>
             ))}
         </nav>
     </div>
