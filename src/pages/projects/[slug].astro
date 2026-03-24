@@ -25,17 +25,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const { project } = Astro.props as { project: ProjectPost };
 const { Content } = await project.render();
 const { title, description, image, tags, links = {} } = project.data;
-const resourceEntries = Object.entries(links).map(([label, href]) => {
-  let hostname = href;
-
-  try {
-    hostname = new URL(href).hostname.replace(/^www\./, "");
-  } catch {
-    hostname = href;
-  }
-
-  return { label, href, hostname };
-});
+const resourceEntries = Object.entries(links);
 ---
 
 <Layout title={title + " | Cesar Ponce"} description={description}>
@@ -79,27 +69,17 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
       {resourceEntries.length > 0 && (
         <Line />
 
-        <div class="flex flex-col gap-3.5">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-principal-text text-primary">Recursos</h2>
-            <p class="text-secondary-text text-secondary">Links y referencias relacionadas con este proyecto.</p>
-          </div>
-
-          <div class="grid gap-2.5 sm:grid-cols-2">
-            {resourceEntries.map(({ label, href, hostname }) => (
+        <div class="flex flex-col gap-2">
+          <h2 class="text-principal-text text-primary">Recursos</h2>
+          <div class="flex flex-col gap-2">
+            {resourceEntries.map(([label, href]) => (
               <a
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                class="group flex items-center justify-between rounded-xl border border-border-default bg-bg-surface px-4 py-3 transition-colors hover:border-accent-primary hover:bg-bg-elevated"
+                class="w-fit text-secondary-text text-accent-primary transition-colors hover:text-accent-hover"
               >
-                <div class="flex min-w-0 flex-col gap-1">
-                  <span class="text-principal-text text-primary">{label}</span>
-                  <span class="text-secondary-text text-secondary">{hostname}</span>
-                </div>
-                <span class="shrink-0 text-secondary-text text-accent-primary transition-colors group-hover:text-accent-hover">
-                  Abrir
-                </span>
+                {label}
               </a>
             ))}
           </div>
@@ -114,64 +94,26 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
 
 
   <script>
-    const copyText = async (text) => {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return true;
-      }
-
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      textarea.style.pointerEvents = "none";
-
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-
-      let copied = false;
-
-      try {
-        copied = document.execCommand("copy");
-      } finally {
-        textarea.remove();
-      }
-
-      return copied;
-    };
-
-    const initializeCopyButtons = () => {
+    document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".project-content pre").forEach((block) => {
-        if (block.querySelector(".copy-btn")) return;
-
         const button = document.createElement("button");
         button.innerText = "Copy";
-        button.type = "button";
         button.className = "copy-btn";
 
         button.addEventListener("click", async () => {
           const code = block.querySelector("code");
           if (!code) return;
 
-          try {
-            const copied = await copyText(code.innerText);
-            button.innerText = copied ? "Copied!" : "Failed";
-          } catch {
-            button.innerText = "Failed";
-          }
+          await navigator.clipboard.writeText(code.innerText);
 
+          button.innerText = "Copied!";
           setTimeout(() => (button.innerText = "Copy"), 1500);
         });
 
         block.style.position = "relative";
         block.appendChild(button);
       });
-    };
-
-    document.addEventListener("DOMContentLoaded", initializeCopyButtons);
-    document.addEventListener("astro:page-load", initializeCopyButtons);
+    });
   </script>
 
 </Layout>
