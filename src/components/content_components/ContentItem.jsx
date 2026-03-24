@@ -15,10 +15,10 @@ const ContentItem = ({ image, title, description, children, href }) => {
     const isShort = description.length < 200;
 
     return (
-        <div onClick={()=> handleRedirect(href)} className="w-full h-fit flex flex-col gap-2 cursor-pointer border-b border-border-default">
-            <div className="relative w-full h-110 mb-2 rounded-lg object-fill ">
+        <div onClick={()=> handleRedirect(href)} className="w-full h-fit flex flex-col gap-2 cursor-pointer border-b border-border-default pb-4">
+            <div className="relative mb-2 w-full overflow-hidden rounded-lg object-fill h-72 sm:h-96 lg:h-[27.5rem]">
                 <div className="absolute inset-0 bg-bg-images z-10 rounded-lg"></div>
-                <img className="w-full h-full rounded-lg z-20 opacity-95 relative inset-0 " src={image} />
+                <img className="relative inset-0 z-20 h-full w-full rounded-lg object-cover opacity-95" src={image} alt={title} />
             </div>
             <ChipContainerReact>{children}</ChipContainerReact>
             <div className="flex flex-col my-2 gap-1">

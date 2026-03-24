@@ -26,7 +26,7 @@ import { ClientRouter } from 'astro:transitions';
         <meta name="description" content={Astro.props.description} />
 		<title>{Astro.props.title}</title>
 	</head>
-	<body class="w-full h-screen flex flex-row justify-between gap-[5.20rem] bg-bg-main">
+	<body class="w-full min-h-screen flex flex-col gap-6 bg-bg-main px-4 py-4 lg:flex-row lg:justify-between lg:gap-[5.20rem] lg:px-0 lg:py-0">
 		<slot />
 	</body>
 </html>
