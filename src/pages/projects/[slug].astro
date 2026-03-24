@@ -114,26 +114,64 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
 
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    const copyText = async (text) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      textarea.style.pointerEvents = "none";
+
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      let copied = false;
+
+      try {
+        copied = document.execCommand("copy");
+      } finally {
+        textarea.remove();
+      }
+
+      return copied;
+    };
+
+    const initializeCopyButtons = () => {
       document.querySelectorAll(".project-content pre").forEach((block) => {
+        if (block.querySelector(".copy-btn")) return;
+
         const button = document.createElement("button");
         button.innerText = "Copy";
+        button.type = "button";
         button.className = "copy-btn";
 
         button.addEventListener("click", async () => {
           const code = block.querySelector("code");
           if (!code) return;
 
-          await navigator.clipboard.writeText(code.innerText);
+          try {
+            const copied = await copyText(code.innerText);
+            button.innerText = copied ? "Copied!" : "Failed";
+          } catch {
+            button.innerText = "Failed";
+          }
 
-          button.innerText = "Copied!";
           setTimeout(() => (button.innerText = "Copy"), 1500);
         });
 
         block.style.position = "relative";
         block.appendChild(button);
       });
-    });
+    };
+
+    document.addEventListener("DOMContentLoaded", initializeCopyButtons);
+    document.addEventListener("astro:page-load", initializeCopyButtons);
   </script>
 
 </Layout>
