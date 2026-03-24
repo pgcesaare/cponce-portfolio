@@ -22,7 +22,7 @@ const ContentItem = ({ image, title, description, children, href }) => {
             </div>
             <ChipContainerReact>{children}</ChipContainerReact>
             <div className="flex flex-col my-2 gap-1">
-                <h3 className="text-secondary-text text-primary bold">{title}</h3>
+                <h3 className="text-primary-text text-primary bold">{title}</h3>
                 <button className="flex flex-row text-start cursor-pointer text-secondary-text text-primary" 
                     onClick={(e) => {
                         e.stopPropagation();

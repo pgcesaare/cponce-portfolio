@@ -28,7 +28,9 @@ const { title, description, image, tags } = project.data;
 ---
 
 <Layout title={title + " | Cesar Ponce"} description={description}>
-  <Aside />
+  <div class="hidden lg:block lg:order-1">
+    <Aside />
+  </div>
 
   <ContentWrapper>
     <div class="flex flex-col gap-5.5">
@@ -66,7 +68,9 @@ const { title, description, image, tags } = project.data;
     </div>
   </ContentWrapper>
 
-  <Section />
+  <div class="hidden lg:block lg:order-3">
+    <Section />
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
