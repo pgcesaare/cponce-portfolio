@@ -187,8 +187,8 @@
 .project-content img{
     width: 100%;
     height: auto;
-    max-height: 500px;
-    object-fit: cover;
+    max-height: 560px;
+    object-fit: contain;
     border: 1px solid #1E293B;
     border-radius: 12px;
 }
