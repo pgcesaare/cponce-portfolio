@@ -1,10 +1,42 @@
 ---
 import ExperienceContainer from '../components/section_components/ExperienceContainer.astro'
+import ChevronLeft from '../assets/ChevronLeft.astro';
 ---
 
 <section class="scroll-panel order-2 w-full rounded-2xl bg-bg-surface px-4.5 py-5.5 lg:order-3 lg:w-88.5 lg:h-screen lg:overflow-y-auto lg:no-scrollbar lg:rounded-none lg:bg-transparent lg:px-5.5 lg:py-5.5">
-    <p class="text-principal-text text-accent-active bold mb-5.5">EXPERIENCIA PROFESIONAL</p>
-    <div class="flex flex-col gap-5.5 ">
-        <ExperienceContainer />
+    <div class="mb-5.5 hidden items-center justify-between gap-3 lg:flex">
+        <p class="text-principal-text text-accent-active bold">EXPERIENCIA PROFESIONAL</p>
     </div>
+
+    <details open class="group lg:pointer-events-none" data-experience-details>
+        <summary class="mb-5.5 flex cursor-pointer list-none items-center justify-between gap-3 lg:hidden">
+            <p class="text-principal-text text-accent-active bold">EXPERIENCIA PROFESIONAL</p>
+            <ChevronLeft class="h-6 w-6 -rotate-90 text-accent-active transition-transform duration-200 group-open:rotate-90" />
+        </summary>
+
+        <div class="flex flex-col gap-5.5">
+            <ExperienceContainer />
+        </div>
+    </details>
 </section>
+
+<script>
+    const setupExperienceDetails = () => {
+        const details = document.querySelector("[data-experience-details]");
+        if (!(details instanceof HTMLDetailsElement)) return;
+
+        const desktopQuery = window.matchMedia("(min-width: 1024px)");
+        const syncState = () => {
+            if (desktopQuery.matches) details.open = true;
+        };
+
+        syncState();
+        desktopQuery.addEventListener("change", syncState);
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupExperienceDetails, { once: true });
+    } else {
+        setupExperienceDetails();
+    }
+</script>
