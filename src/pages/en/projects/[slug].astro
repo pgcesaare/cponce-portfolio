@@ -1,0 +1,154 @@
+---
+import type { GetStaticPaths, CollectionEntry } from "astro";
+import { getCollection } from "astro:content";
+
+import Layout from "../../../layouts/Layout.astro";
+import Aside from "../../../layouts/Aside.astro";
+import ContentWrapper from "../../../layouts/Content.astro";
+import Section from "../../../layouts/Section.astro";
+import Chip from "../../../components/general/Chip.astro";
+import ChipContainer from "../../../components/general/ChipContainer.astro";
+import Line from "../../../components/general/Line.astro";
+import BackButton from "../../../components/general/BackButton.astro";
+import { siteContent } from "../../../data/siteContent";
+import { getProjectBaseSlug, getProjectLanguageFromId } from "../../../utils/projectSlugs";
+
+type ProjectPost = CollectionEntry<"projects">;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await getCollection("projects");
+
+  return projects
+    .filter((project) => getProjectLanguageFromId(project.id) === "en")
+    .map((project) => ({
+      params: { slug: getProjectBaseSlug(project.id) },
+      props: { project }
+    }));
+};
+
+const { project } = Astro.props as { project: ProjectPost };
+const { Content } = await project.render();
+const { title, description, image, tags, links = {} } = project.data;
+const content = siteContent.en;
+const resourceEntries = Object.entries(links).map(([label, href]) => {
+  let hostname = href;
+
+  try {
+    hostname = new URL(href).hostname.replace(/^www\./, "");
+  } catch {
+    hostname = href;
+  }
+
+  return { label, href, hostname };
+});
+---
+
+<Layout title={title + " | Cesar Ponce"} description={description}>
+  <div class="hidden lg:block lg:order-1">
+    <Aside
+      ProfileName={content.ProfileName}
+      ProfileRole={content.ProfileRole}
+      ProfileSlogan={content.ProfileSlogan}
+      FocusTitle={content.FocusTitle}
+      FocusBullets={content.FocusBullets}
+      SkillsTitle={content.SkillsTitle}
+      SkillsBullets={content.SkillsBullets}
+      StrenghtsTitle={content.StrenghtsTitle}
+      StrenghtsBullets={content.StrenghtsBullets}
+    />
+  </div>
+
+  <ContentWrapper>
+    <div class="flex flex-col gap-5.5">
+      <BackButton href="/en" />
+
+      <h1 class="text-title-h3 text-primary">{title}</h1>
+
+      <Line />
+
+      <p class="text-principal-text text-primary">
+        {description}
+      </p>
+
+      {image && (
+        <div class="w-full h-64 rounded-lg object-fill sm:h-80 lg:h-[26rem]">
+          <img
+            class="w-full h-full rounded-lg object-cover"
+            src={image}
+            alt={title}
+          />
+        </div>
+      )}
+
+      <ChipContainer>
+        {tags.map((tag) => (
+          <Chip>{tag}</Chip>
+        ))}
+      </ChipContainer>
+
+      <div class="project-content">
+        <Content />
+      </div>
+
+      {resourceEntries.length > 0 && (
+        <Line />
+
+        <div class="w-full flex flex-col gap-3">
+          <div class="w-full flex flex-col gap-1">
+            <h2 class="text-principal-text text-primary">Recursos</h2>
+            <p class="text-secondary-text text-secondary">Links utiles para explorar este proyecto.</p>
+          </div>
+          <div class="w-full grid grid-cols-1 gap-2.5">
+            {resourceEntries.map(({ label, href, hostname }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                class="group flex w-full items-center justify-between rounded-xl border border-border-default bg-bg-surface px-4 py-3 transition-colors hover:border-accent-primary hover:bg-bg-elevated"
+              >
+                <div class="min-w-0 w-full">
+                  <p class="text-principal-text text-primary">{label}</p>
+                  <p class="text-secondary-text text-secondary">{hostname}</p>
+                </div>
+                <span class="shrink-0 text-secondary-text text-accent-primary transition-colors group-hover:text-accent-hover">
+                  Abrir
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </ContentWrapper>
+
+  <div class="hidden lg:block lg:order-3">
+    <Section
+      title={content.SectionTitle}
+      ExperienceItems={content.SectionExperienceItems}
+    />
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".project-content pre").forEach((block) => {
+        const button = document.createElement("button");
+        button.innerText = "Copy";
+        button.className = "copy-btn";
+
+        button.addEventListener("click", async () => {
+          const code = block.querySelector("code");
+          if (!code) return;
+
+          await navigator.clipboard.writeText(code.innerText);
+
+          button.innerText = "Copied!";
+          setTimeout(() => (button.innerText = "Copy"), 1500);
+        });
+
+        block.style.position = "relative";
+        block.appendChild(button);
+      });
+    });
+  </script>
+
+</Layout>

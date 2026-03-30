@@ -1,14 +1,20 @@
 ---
+
+interface Props {
+    title: string,
+    bullets: string[]
+}
+
+const { title, bullets = [] } = Astro.props
+
 import CardContainer from "../CardContainer.astro";
 import Bullets from "../Bullets.astro";
 ---
 
-<CardContainer title="ENFOQUE">
+<CardContainer title={title}>
     <ul class="flex flex-col gap-0.5">
-        <Bullets>Análisis avanzado de datos</Bullets>
-        <Bullets>Dashboards interactivos</Bullets>
-        <Bullets>Automatización con Python</Bullets>
-        <Bullets>Limpieza y modelado de datos</Bullets>
-        <Bullets>Data-driven decision support</Bullets>
+        {bullets.map((item) => (
+            <Bullets>{item}</Bullets>
+        ))}
     </ul>
 </CardContainer>

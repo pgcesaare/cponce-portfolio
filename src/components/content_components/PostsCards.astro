@@ -1,23 +1,52 @@
 ---
+
+interface Props {
+    title: string
+}
+
+const { title } = Astro.props
+
 import ChipReact from "./ChipReact";
 import ContentItem from "./ContentItem.jsx";
 import { getCollection } from "astro:content";
+import {
+    getProjectBaseSlug,
+    getProjectLanguageFromId
+} from "../../utils/projectSlugs";
 
-const posts = await getCollection("projects");
+const currentLanguage = Astro.url.pathname.startsWith("/es") ? "es" : "en";
+
+const posts = (await getCollection("projects"))
+    .filter((project) => getProjectLanguageFromId(project.id) === currentLanguage)
+    .filter((project, index, projects) => {
+        const baseName = getProjectBaseSlug(project.id);
+
+        return (
+            projects.findIndex(
+                (candidate) => getProjectBaseSlug(candidate.id) === baseName
+            ) === index
+        );
+    });
 ---
 <div class="w-full max-w-5xl flex flex-col gap-5.5">
-    <h1 class="text-title-h2 text-primary">Mis Proyectos</h1>
-
-    {posts.map((p) => (
-    <ContentItem client:load
-        image={p.data.image}
-        title={p.data.title}
-        description={p.data.description}
-        href={`/projects/${p.slug}`}
-    >
-        {p.data.tags.map((chip) => (
-        <ChipReact>{chip}</ChipReact>
+    {posts.length > 0 ? (
+        <>
+        <h1 class="text-title-h2 text-primary">{title}</h1>
+            {posts.map((p) => (
+                <ContentItem client:load
+                    image={p.data.image}
+                    title={p.data.title}
+                    description={p.data.description}
+                    href={`/${currentLanguage}/projects/${getProjectBaseSlug(p.id)}`}
+                >
+                    {p.data.tags.map((chip) => (
+                    <ChipReact>{chip}</ChipReact>
+                    ))}
+                </ContentItem>
         ))}
-    </ContentItem>
-    ))}
+        </>
+        ) : (
+            <p class="text-primary text-2xl">No post yet.</p>
+        )
+    }
 </div>

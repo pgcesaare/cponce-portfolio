@@ -2,29 +2,34 @@
 import type { GetStaticPaths, CollectionEntry } from "astro";
 import { getCollection } from "astro:content";
 
-import Layout from "../../layouts/Layout.astro";
-import Aside from "../../layouts/Aside.astro";
-import ContentWrapper from "../../layouts/Content.astro";
-import Section from "../../layouts/Section.astro";
-import Chip from "../../components/general/Chip.astro";
-import ChipContainer from "../../components/general/ChipContainer.astro";
-import Line from "../../components/general/Line.astro";
-import BackButton from "../../components/general/BackButton.astro";
+import Layout from "../../../layouts/Layout.astro";
+import Aside from "../../../layouts/Aside.astro";
+import ContentWrapper from "../../../layouts/Content.astro";
+import Section from "../../../layouts/Section.astro";
+import Chip from "../../../components/general/Chip.astro";
+import ChipContainer from "../../../components/general/ChipContainer.astro";
+import Line from "../../../components/general/Line.astro";
+import BackButton from "../../../components/general/BackButton.astro";
+import { siteContent } from "../../../data/siteContent";
+import { getProjectBaseSlug, getProjectLanguageFromId } from "../../../utils/projectSlugs";
 
 type ProjectPost = CollectionEntry<"projects">;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const projects = await getCollection("projects");
 
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project }
-  }));
+  return projects
+    .filter((project) => getProjectLanguageFromId(project.id) === "es")
+    .map((project) => ({
+      params: { slug: getProjectBaseSlug(project.id) },
+      props: { project }
+    }));
 };
 
 const { project } = Astro.props as { project: ProjectPost };
 const { Content } = await project.render();
 const { title, description, image, tags, links = {} } = project.data;
+const content = siteContent.es;
 const resourceEntries = Object.entries(links).map(([label, href]) => {
   let hostname = href;
 
@@ -40,13 +45,22 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
 
 <Layout title={title + " | Cesar Ponce"} description={description}>
   <div class="hidden lg:block lg:order-1">
-    <Aside />
+    <Aside
+      ProfileName={content.ProfileName}
+      ProfileRole={content.ProfileRole}
+      ProfileSlogan={content.ProfileSlogan}
+      FocusTitle={content.FocusTitle}
+      FocusBullets={content.FocusBullets}
+      SkillsTitle={content.SkillsTitle}
+      SkillsBullets={content.SkillsBullets}
+      StrenghtsTitle={content.StrenghtsTitle}
+      StrenghtsBullets={content.StrenghtsBullets}
+    />
   </div>
 
   <ContentWrapper>
     <div class="flex flex-col gap-5.5">
-
-      <BackButton />
+      <BackButton href="/es" />
 
       <h1 class="text-title-h3 text-primary">{title}</h1>
 
@@ -108,9 +122,11 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
   </ContentWrapper>
 
   <div class="hidden lg:block lg:order-3">
-    <Section />
+    <Section
+      title={content.SectionTitle}
+      ExperienceItems={content.SectionExperienceItems}
+    />
   </div>
-
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {

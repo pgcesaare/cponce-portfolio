@@ -1,20 +1,27 @@
 ---
-
-import Layout from '../layouts/Layout.astro';
-import Aside from '../layouts/Aside.astro';
-import Content from '../layouts/Content.astro';
-import Section from '../layouts/Section.astro';
-import PostsCards from '../components/content_components/PostsCards.astro';
-
+const fallbackPath = "/en";
 ---
 
-<Layout
-	title="Cesar Ponce | Portfolio"
-	description='This is my portfolio'
-	>
-		<Aside />
-		<Content>
-			<PostsCards/>
-		</Content>
-		<Section />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="refresh" content={`0;url=${fallbackPath}`} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script is:inline>
+      const browserLanguage = navigator.language.toLowerCase();
+      const targetPath = browserLanguage.startsWith("es") ? "/es" : "/en";
+
+      window.location.replace(targetPath);
+    </script>
+
+    <noscript>
+      <p>
+        JavaScript is required to detect your browser language. Continue to
+        <a href={fallbackPath}>{fallbackPath}</a>.
+      </p>
+    </noscript>
+  </body>
+</html>

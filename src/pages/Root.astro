@@ -1,0 +1,77 @@
+---
+interface ExperienceItem {
+  title: string;
+  period: string;
+  role: string;
+  bullets: string[];
+}
+
+interface Props {
+	title: string
+	description: string
+	ProfileName: string
+	ProfileRole: string,
+	ProfileSlogan: string
+	FocusTitle: string
+	FocusBullets: string[],
+	SkillsTitle: string,
+	SkillsBullets: string[],
+	StrenghtsTitle: string,
+    StrenghtsBullets: string[],
+	SectionTitle: string,
+	SectionExperienceItems: ExperienceItem[],
+	PostCardsTitle: string
+}
+
+const { 
+	title, 
+	description, 
+	ProfileName, 
+	ProfileRole, 
+	ProfileSlogan,
+	FocusTitle,
+	FocusBullets,
+	SkillsTitle,
+	SkillsBullets,
+	StrenghtsTitle,
+    StrenghtsBullets,
+	SectionTitle,
+	SectionExperienceItems,
+	PostCardsTitle,
+} = Astro.props
+
+
+import Layout from '../layouts/Layout.astro';
+import Aside from '../layouts/Aside.astro';
+import Content from '../layouts/Content.astro';
+import Section from '../layouts/Section.astro';
+import PostsCards from '../components/content_components/PostsCards.astro';
+
+---
+
+<Layout
+	title={title}
+	description={description}
+	>
+		<Aside
+			ProfileName={ProfileName}
+			ProfileRole={ProfileRole}
+			ProfileSlogan={ProfileSlogan}
+			FocusTitle={FocusTitle}
+			FocusBullets={FocusBullets}
+			SkillsTitle={SkillsTitle}
+			SkillsBullets={SkillsBullets}
+			StrenghtsTitle={StrenghtsTitle}
+			StrenghtsBullets={StrenghtsBullets}
+		/>
+		<Content>
+			<PostsCards
+				title={PostCardsTitle}
+			/>
+		</Content>
+		<Section 
+			title={SectionTitle}
+			ExperienceItems={SectionExperienceItems}
+		/>
+
+</Layout>
