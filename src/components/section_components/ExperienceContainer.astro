@@ -15,14 +15,19 @@ import Bullets from '../../components/aside_components/Bullets.astro';
 import ExperienceCard from '../../components/section_components/ExperienceCard.astro';
 ---
 
-<div class="flex flex-col gap-4">
+<div class="relative flex flex-col gap-6 pl-4">
+  <div
+    aria-hidden="true"
+    class="absolute left-[0.32rem] top-2 bottom-2 w-px bg-border-default"
+  ></div>
+
   {items.map((item) => (
     <ExperienceCard
       title={item.title}
       period={item.period}
       role={item.role}
     >
-      <ul>
+      <ul class="flex flex-col gap-1">
         {item.bullets.map((bullet) => (
           <Bullets>{bullet}</Bullets>
         ))}

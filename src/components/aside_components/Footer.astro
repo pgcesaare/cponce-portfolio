@@ -4,9 +4,9 @@ import Linkedin from "../../assets/Linkedin.astro";
 import Email from "../../assets/Email.astro";
 
 const generalLinks = [
-    { label: "LinkedIn", Icon: Linkedin, url:"https://www.linkedin.com" },
-    { label: "GitHub", Icon: Github, url:"https://github.com" },
-    { label: "Email", Icon: Email, url:"https://google.com" }
+    { label: "LinkedIn", Icon: Linkedin, url:"https://www.linkedin.com/in/ceponceg/" },
+    { label: "GitHub", Icon: Github, url:"https://github.com/pgcesaare" },
+    { label: "Email", Icon: Email, url:"mailto:cesarelias.ponceg@gmail.com" }
 ];
 ---
 
@@ -16,10 +16,12 @@ const generalLinks = [
             <p class="text-principal-text text-primary">Links</p>
         </div>
 
-        <nav aria-label="Links generales" class="grid grid-cols-3 gap-2.5">
+        <nav aria-label="Links" class="grid grid-cols-3 gap-2.5">
             {generalLinks.map(({ label, Icon, url }) => (
-                <a href={url} class="cursor-pointer flex flex-col items-center justify-center gap-2 rounded-xl border border-border-default bg-bg-elevated px-3 py-3 text-center transition-colors">
-                    <Icon class="h-5 w-5" />
+                <a href={url} class="group cursor-pointer flex flex-col items-center justify-center gap-2 rounded-xl border border-border-default bg-bg-elevated px-3 py-3 text-center transition-colors hover:border-accent-primary hover:bg-bg-surface">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default bg-bg-surface transition-colors group-hover:border-accent-primary">
+                        <Icon class="h-5 w-5 text-accent-primary" />
+                    </div>
                     <span class="text-secondary-text text-secondary">{label}</span>
                 </a>
             ))}

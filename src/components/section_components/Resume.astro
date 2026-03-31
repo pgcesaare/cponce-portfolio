@@ -1,0 +1,46 @@
+---
+
+interface Props {
+    title: string,
+    caption: string
+}
+
+const { title, caption } = Astro.props
+
+import { getResumePaths } from "../../utils/resume";
+
+const { en: englishResumePath, es: spanishResumePath } = getResumePaths();
+---
+
+<div class="w-full mt-5 lg:m-0">
+    <a
+        href={englishResumePath}
+        download
+        data-resume-link
+        data-path-en={englishResumePath}
+        data-path-es={spanishResumePath}
+        class="group flex w-full items-center justify-between gap-3 rounded-xl border border-border-default bg-bg-elevated px-4 py-3 text-left transition-colors hover:border-accent-primary hover:bg-bg-surface"
+    >
+        <div class="flex min-w-0 flex-col gap-1">
+            <span class="text-principal-text text-primary">{title}</span>
+            <span class="text-secondary-text text-secondary">{caption}</span>
+        </div>
+
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border-default bg-bg-surface transition-colors group-hover:border-accent-primary">
+            <span class="text-secondary-text text-accent-primary">CV</span>
+        </div>
+    </a>
+</div>
+
+<script>
+    import { syncLocalizedHref } from "../../utils/browserLanguage";
+
+    const resumeLink = document.querySelector("[data-resume-link]");
+
+    if (resumeLink instanceof HTMLAnchorElement) {
+        syncLocalizedHref(resumeLink, {
+            en: resumeLink.dataset.pathEn ?? resumeLink.href,
+            es: resumeLink.dataset.pathEs ?? resumeLink.href
+        });
+    }
+</script>

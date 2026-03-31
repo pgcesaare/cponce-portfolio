@@ -9,31 +9,40 @@ interface ExperienceItem {
 interface Props {
     title: string
     ExperienceItems: ExperienceItem[]
+    ResumeTitle: string,
+    ResumeCaption: string
 }
 
-const { title, ExperienceItems = [] } = Astro.props
+const { title, ExperienceItems = [], ResumeTitle, ResumeCaption } = Astro.props
 
-import ExperienceContainer from '../components/section_components/ExperienceContainer.astro'
+import ExperienceContainer from '../components/section_components/ExperienceContainer.astro';
 import ChevronLeft from '../assets/ChevronLeft.astro';
+import Resume from '../components/section_components/Resume.astro';
 ---
 
-<section class="scroll-panel order-2 w-full rounded-2xl bg-bg-surface px-4.5 py-5.5 lg:order-3 lg:w-88.5 lg:h-screen lg:overflow-y-auto lg:no-scrollbar lg:rounded-none lg:bg-transparent lg:px-5.5 lg:py-5.5">
-    <div class="mb-5.5 hidden items-center justify-between gap-3 lg:flex">
-        <p class="text-principal-text text-accent-active bold">{title}</p>
-    </div>
-
-    <details open class="group lg:pointer-events-none" data-experience-details>
-        <summary class="mb-5.5 flex cursor-pointer list-none items-center justify-between gap-3 lg:hidden">
+<section class="lg:flex lg:flex-col lg:justify-between scroll-panel order-2 w-full rounded-2xl bg-bg-surface px-4.5 py-5.5 lg:order-3 lg:w-95 lg:h-screen lg:overflow-y-auto lg:no-scrollbar lg:rounded-none lg:bg-transparent lg:px-5.5 lg:py-5.5">
+    <div>
+        <div class="mb-5.5 hidden items-center justify-between gap-3 lg:flex">
             <p class="text-principal-text text-accent-active bold">{title}</p>
-            <ChevronLeft class="h-6 w-6 -rotate-90 text-accent-active transition-transform duration-200 group-open:rotate-90" />
-        </summary>
-
-        <div class="flex flex-col gap-5.5">
-            <ExperienceContainer 
-                items={ExperienceItems}
-            />
         </div>
-    </details>
+
+        <details open class="group lg:pointer-events-none" data-experience-details>
+            <summary class="mb-5.5 flex cursor-pointer list-none items-center justify-between gap-3 lg:hidden">
+                <p class="text-principal-text text-accent-active bold">{title}</p>
+                <ChevronLeft class="h-6 w-6 -rotate-90 text-accent-active transition-transform duration-200 group-open:rotate-90" />
+            </summary>
+
+            <div class="flex flex-col gap-5.5">
+                <ExperienceContainer 
+                    items={ExperienceItems}
+                />
+            </div>
+        </details>
+    </div>
+    <Resume 
+        title={ResumeTitle}
+        caption={ResumeCaption}
+    />
 </section>
 
 <script>

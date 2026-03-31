@@ -8,13 +8,23 @@ interface Props {
 const { title, period, role } = Astro.props
 ---
 
-<div class="w-full py-4 flex flex-col gap-1.5 border-y border-border-default">
-    <div class="flex flex-col gap-0.5">
-        <div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+<div class="relative flex w-full flex-col gap-1.5 pb-6 last:pb-0">
+    <div
+        aria-hidden="true"
+        class="absolute left-[-1.12rem] top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full border border-border-default bg-bg-surface"
+    >
+        <span class="timeline-dot h-1.5 w-1.5 rounded-full bg-accent-active"></span>
+    </div>
+
+    <div class="flex flex-col gap-0">
+        <div class="flex flex-col gap-0 sm:flex-row sm:items-end sm:justify-between">
             <p class="text-principal-text text-primary">{title}</p>
             <p class="text-secondary-text text-secondary">{period}</p>
         </div>
         <p class="text-principal-text text-accent-active">{role}</p>
     </div>
-    <slot />
+
+    <div class="border-l border-border-default/60 pl-2.5">
+        <slot />
+    </div>
 </div>

@@ -20,7 +20,9 @@ interface Props {
     StrenghtsBullets: string[],
 	SectionTitle: string,
 	SectionExperienceItems: ExperienceItem[],
-	PostCardsTitle: string
+	PostCardsTitle: string,
+	ResumeTitle: string,
+	ResumeCaption: string
 }
 
 const { 
@@ -38,15 +40,17 @@ const {
 	SectionTitle,
 	SectionExperienceItems,
 	PostCardsTitle,
+	ResumeTitle,
+	ResumeCaption
 } = Astro.props
 
 
-import Layout from '../layouts/Layout.astro';
-import Aside from '../layouts/Aside.astro';
-import Content from '../layouts/Content.astro';
-import Section from '../layouts/Section.astro';
-import PostsCards from '../components/content_components/PostsCards.astro';
 
+import Aside from './Aside.astro';
+import Content from './Content.astro';
+import Section from './Section.astro';
+import PostsCards from '../components/content_components/PostsCards.astro';
+import Layout from './Layout.astro';
 ---
 
 <Layout
@@ -72,6 +76,8 @@ import PostsCards from '../components/content_components/PostsCards.astro';
 		<Section 
 			title={SectionTitle}
 			ExperienceItems={SectionExperienceItems}
+			ResumeTitle={ResumeTitle}
+			ResumeCaption={ResumeCaption}
 		/>
 
 </Layout>

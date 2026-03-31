@@ -3,7 +3,7 @@ image: "/Example.jpg"
 title: "How I Built My Cattle Inventory System from Scratch"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius nisl id nisl porta sodales. Proin efficitur neque metus. Nam sed pellentesque risus. Aenean porta sollicitudin dictum. Duis mollis condimentum iaculis."
 date: 2026-02-09
-tags: ["Inventory", "Data Analysis", "Operations", "System Design", "Alejandro"]
+tags: ["Inventory", "Data Analysis", "Operations", "System Design"]
 links: {"Github": "https://www.github.com/"}
 lang: es
 ---
