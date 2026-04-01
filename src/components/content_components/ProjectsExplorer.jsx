@@ -9,7 +9,7 @@ import ContentItem from "./ContentItem.jsx";
 import ChipReact from "./ChipReact.jsx";
 
 const filterButtonClass =
-  "rounded-xl border px-3 py-2 text-secondary-text transition-colors text-nowrap";
+  "rounded-xl border px-3 py-2 text-secondary-text transition-colors text-nowrap cursor-pointer";
 
 const ChevronLeftIcon = () => (
   <svg
@@ -215,7 +215,7 @@ const ProjectsExplorer = ({ title, posts, labels }) => {
 
               <button
                 type="button"
-                className="inline-flex shrink-0 items-center justify-center self-stretch rounded-xl border border-border-default bg-bg-main px-2 text-secondary transition-colors hover:border-accent-primary hover:bg-bg-elevated hover:text-primary disabled:cursor-default disabled:opacity-45 disabled:hover:border-border-default disabled:hover:bg-bg-main disabled:hover:text-secondary"
+                className=" cursor-pointer inline-flex shrink-0 items-center justify-center self-stretch rounded-xl border border-border-default bg-bg-main px-2 text-secondary transition-colors hover:border-accent-primary hover:bg-bg-elevated hover:text-primary disabled:cursor-default disabled:opacity-45 disabled:hover:border-border-default disabled:hover:bg-bg-main disabled:hover:text-secondary"
                 onClick={() => scrollChips(1)}
                 aria-label={labels.scrollRightLabel}
                 disabled={!canScrollRight}
