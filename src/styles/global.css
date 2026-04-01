@@ -204,10 +204,16 @@
 .project-content pre {
     border: 1px solid #1E293B;
     background-color: #162447 !important;
-    padding: 32px 12px 12px 12px ;
+    padding: 52px 0 0 0;
     border-radius: 12px;
-    overflow-x: auto;
+    overflow: hidden;
     position: relative;
+}
+
+.project-content pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 0 12px 12px 12px;
 }
 
 .project-content hr {
@@ -220,7 +226,7 @@
 .project-content pre::before {
   content: attr(data-language);
   position: absolute;
-  top: 8px;
+  top: 12px;
   left: 12px;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -229,13 +235,13 @@
 
 .copy-btn {
   position: absolute;
-  top: 10px;
+  top: 8px;
   right: 10px;
   z-index: 2;
-  background: #0F172A;
+  background: rgba(15, 23, 42, 0.5);
   color: #B0B0B0;
   border: none;
-  padding: 8px 12px;
+  padding: 1px 12px;
   font-size: 0.75rem;
   border-radius: 6px;
   cursor: pointer;
@@ -246,6 +252,7 @@
 }
 
 .copy-btn:hover {
+  background: transparent;
   border-color: #0AE98A;
   color: #E5E7EB;
 }
