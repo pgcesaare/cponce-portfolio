@@ -1,14 +1,20 @@
-
 import React, { useState } from 'react';
 import ChipContainerReact from './ChipContainerReact.jsx';
 
-const ContentItem = ({ image, title, description, children, href }) => {
+const ContentItem = ({
+    image,
+    title,
+    description,
+    children,
+    href,
+    date,
+    readMoreLabel = "more"
+}) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
     }
     const handleRedirect = (href) => {
-        console.log('here')
         window.location.href = href
     }
 
@@ -22,6 +28,9 @@ const ContentItem = ({ image, title, description, children, href }) => {
             </div>
             <ChipContainerReact>{children}</ChipContainerReact>
             <div className="flex flex-col my-2 gap-1">
+                {date ? (
+                    <p className="text-secondary-text text-accent-primary">{date}</p>
+                ) : null}
                 <h3 className="text-primary-text text-primary bold">{title}</h3>
                 <button className="flex flex-row text-start cursor-pointer text-secondary-text text-primary" 
                     onClick={(e) => {
@@ -34,7 +43,7 @@ const ContentItem = ({ image, title, description, children, href }) => {
                     ) : (
                         <div className='inline'>
                         {description.substring(0, 200)}
-                        <span className="text-secondary">... more</span>
+                        <span className="text-secondary">... {readMoreLabel}</span>
                         </div>
                     )}
 

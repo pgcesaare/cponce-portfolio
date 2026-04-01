@@ -1,0 +1,24 @@
+---
+const homePath = "/";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="refresh" content={`0;url=${homePath}`} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <script is:inline>
+      window.location.replace("/");
+    </script>
+
+    <noscript>
+      <p>
+        This page does not exist. Continue to
+        <a href={homePath}>{homePath}</a>.
+      </p>
+    </noscript>
+  </body>
+</html>

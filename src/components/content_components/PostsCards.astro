@@ -6,8 +6,7 @@ interface Props {
 
 const { title } = Astro.props
 
-import ChipReact from "./ChipReact";
-import ContentItem from "./ContentItem.jsx";
+import ProjectsExplorer from "./ProjectsExplorer.jsx";
 import { getCollection } from "astro:content";
 import {
     getProjectBaseSlug,
@@ -27,26 +26,53 @@ const posts = (await getCollection("projects"))
             ) === index
         );
     });
+
+const labels =
+    currentLanguage === "es"
+        ? {
+            searchPlaceholder: "Buscar",
+            clearSearchLabel: "Limpiar busqueda",
+            allTechnologiesLabel: "Todas",
+            scrollLeftLabel: "Desplazar tecnologias a la izquierda",
+            scrollRightLabel: "Desplazar tecnologias a la derecha",
+            emptyStateTitle: "No se encontraron proyectos",
+            emptyStateCaption: "Prueba con otro nombre o cambia la tecnologia.",
+            readMoreLabel: "mas",
+            singleResultLabel: "1 proyecto encontrado",
+            multipleResultsLabel: "{count} proyectos encontrados"
+        }
+        : {
+            searchPlaceholder: "Search",
+            clearSearchLabel: "Clear search",
+            allTechnologiesLabel: "All",
+            scrollLeftLabel: "Scroll technologies left",
+            scrollRightLabel: "Scroll technologies right",
+            emptyStateTitle: "No projects found",
+            emptyStateCaption: "Try a different name or switch the technology filter.",
+            readMoreLabel: "more",
+            singleResultLabel: "1 project found",
+            multipleResultsLabel: "{count} projects found"
+        };
+
+const serializedPosts = posts.map((project) => ({
+    image: project.data.image,
+    date: project.data.date.toLocaleDateString(
+        currentLanguage === "es" ? "es-MX" : "en-US",
+        {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        }
+    ),
+    title: project.data.title,
+    description: project.data.description,
+    href: `/${currentLanguage}/projects/${getProjectBaseSlug(project.id)}`,
+    tags: project.data.tags
+}));
 ---
-<div class="w-full max-w-5xl flex flex-col gap-5.5">
-    {posts.length > 0 ? (
-        <>
-        <h1 class="text-title-h2 text-primary">{title}</h1>
-            {posts.map((p) => (
-                <ContentItem client:load
-                    image={p.data.image}
-                    title={p.data.title}
-                    description={p.data.description}
-                    href={`/${currentLanguage}/projects/${getProjectBaseSlug(p.id)}`}
-                >
-                    {p.data.tags.map((chip) => (
-                    <ChipReact>{chip}</ChipReact>
-                    ))}
-                </ContentItem>
-        ))}
-        </>
-        ) : (
-            <p class="text-primary text-2xl">No post yet.</p>
-        )
-    }
-</div>
+<ProjectsExplorer
+    client:load
+    title={title}
+    posts={serializedPosts}
+    labels={labels}
+/>

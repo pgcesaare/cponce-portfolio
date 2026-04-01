@@ -1,0 +1,245 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import Layout from "../layouts/Layout.astro";
+import Aside from "../layouts/Aside.astro";
+import ContentWrapper from "../layouts/Content.astro";
+import Section from "../layouts/Section.astro";
+import Chip from "../components/general/Chip.astro";
+import ChipContainer from "../components/general/ChipContainer.astro";
+import BackButton from "../components/general/BackButton.astro";
+import { siteContent } from "../data/siteContent";
+
+type ProjectPost = CollectionEntry<"projects">;
+type Locale = "en" | "es";
+
+interface Props {
+  project: ProjectPost;
+  locale: Locale;
+  homeHref: string;
+  labels: {
+    eyebrow: string;
+    publishedLabel: string;
+    technologiesTitle: string;
+    technologiesCaption: string;
+    articleEyebrow: string;
+    articleTitle: string;
+    resourcesTitle: string;
+    resourcesCaption: string;
+    openLabel: string;
+    copyLabel: string;
+    copiedLabel: string;
+    resumeTitle: string;
+    resumeCaption: string;
+  };
+}
+
+const { project, locale, homeHref, labels } = Astro.props;
+const { Content } = await project.render();
+const { title, description, image, tags, links = {}, date } = project.data;
+const content = siteContent[locale];
+const publishedDate = date.toLocaleDateString(locale === "es" ? "es-MX" : "en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric"
+});
+
+const resourceEntries = Object.entries(links).map(([label, href]) => {
+  let hostname = href;
+
+  try {
+    hostname = new URL(href).hostname.replace(/^www\./, "");
+  } catch {
+    hostname = href;
+  }
+
+  return { label, href, hostname };
+});
+---
+
+<Layout title={`${title} | Cesar Ponce`} description={description}>
+  <div class="hidden lg:block lg:order-1">
+    <Aside
+      ProfileName={content.ProfileName}
+      ProfileRole={content.ProfileRole}
+      ProfileSlogan={content.ProfileSlogan}
+      FocusTitle={content.FocusTitle}
+      FocusBullets={content.FocusBullets}
+      SkillsTitle={content.SkillsTitle}
+      SkillsBullets={content.SkillsBullets}
+      StrenghtsTitle={content.StrenghtsTitle}
+      StrenghtsBullets={content.StrenghtsBullets}
+    />
+  </div>
+
+  <ContentWrapper>
+    <article class="mx-auto flex w-full max-w-4xl flex-col gap-5.5">
+      <BackButton href={homeHref} />
+
+      <section class="flex flex-col gap-5.5 border-b border-border-default pb-5.5">
+        <div class="flex flex-col gap-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="rounded-full border border-accent-primary/30 px-3 py-1 text-secondary-text text-accent-primary">
+              {labels.eyebrow}
+            </span>
+            <span class="rounded-full border border-border-default px-3 py-1 text-secondary-text text-secondary">
+              {labels.publishedLabel}: {publishedDate}
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h1 class="text-title-h2 text-primary sm:text-[2.25rem] sm:leading-tight">
+              {title}
+            </h1>
+            <p class="max-w-3xl text-principal-text text-secondary">
+              {description}
+            </p>
+          </div>
+
+          {image && (
+            <div class="overflow-hidden rounded-[1.4rem] border border-border-default">
+              <div class="relative h-64 w-full overflow-hidden sm:h-80 lg:h-[25rem]">
+                <img
+                  class="h-full w-full object-cover"
+                  src={image}
+                  alt={title}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section class="flex flex-col gap-3 border-b border-border-default pb-5.5">
+        <div class="mb-3 flex flex-col gap-1">
+          <p class="text-principal-text text-primary">{labels.technologiesTitle}</p>
+          <p class="text-secondary-text text-secondary">{labels.technologiesCaption}</p>
+        </div>
+
+        <ChipContainer>
+          {tags.map((tag) => (
+            <Chip>{tag}</Chip>
+          ))}
+        </ChipContainer>
+      </section>
+
+      <section class="flex flex-col gap-5">
+        <div class="mb-5 flex flex-col gap-1 border-b border-border-default pb-4">
+          <p class="text-secondary-text text-accent-primary">{labels.articleEyebrow}</p>
+          <h2 class="text-title-h3 text-primary">{labels.articleTitle}</h2>
+        </div>
+
+        <div class="project-content">
+          <Content />
+        </div>
+      </section>
+
+      {resourceEntries.length > 0 && (
+        <section class="flex flex-col gap-4 border-t border-border-default pt-5.5">
+          <div class="mb-4 flex flex-col gap-1">
+            <p class="text-principal-text text-primary">{labels.resourcesTitle}</p>
+            <p class="text-secondary-text text-secondary">{labels.resourcesCaption}</p>
+          </div>
+
+          <div class="flex flex-col gap-2.5">
+            {resourceEntries.map(({ label, href, hostname }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                class="group flex items-center justify-between gap-3 rounded-2xl border border-border-default px-4 py-3 transition-colors hover:border-accent-primary hover:bg-bg-elevated/30"
+              >
+                <div class="min-w-0">
+                  <p class="text-principal-text text-primary">{label}</p>
+                  <p class="truncate text-secondary-text text-secondary">{hostname}</p>
+                </div>
+
+                <span class="rounded-full border border-border-default px-2.5 py-1 text-secondary-text text-accent-primary transition-colors group-hover:border-accent-primary">
+                  {labels.openLabel}
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+  </ContentWrapper>
+
+  <div class="hidden lg:block lg:order-3">
+    <Section
+      title={content.SectionTitle}
+      ExperienceItems={content.SectionExperienceItems}
+      ResumeTitle={labels.resumeTitle}
+      ResumeCaption={labels.resumeCaption}
+    />
+  </div>
+
+  <script
+    define:vars={{
+      copyLabel: labels.copyLabel,
+      copiedLabel: labels.copiedLabel
+    }}
+  >
+    const copyText = async (text) => {
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {}
+
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        textarea.style.pointerEvents = "none";
+        textarea.style.top = "0";
+        textarea.style.left = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length);
+        const copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        return copied;
+      } catch {
+        return false;
+      }
+    };
+
+    const setupCopyButtons = () => {
+      document.querySelectorAll(".project-content pre").forEach((block) => {
+        if (block.querySelector(".copy-btn")) return;
+
+        const button = document.createElement("button");
+        button.innerText = copyLabel;
+        button.className = "copy-btn";
+        button.type = "button";
+
+        button.addEventListener("click", async () => {
+          const code = block.querySelector("code");
+          if (!code) return;
+
+          const copied = await copyText(code.innerText);
+          button.innerText = copied ? copiedLabel : copyLabel;
+
+          if (copied) {
+            setTimeout(() => (button.innerText = copyLabel), 1500);
+          }
+        });
+
+        block.style.position = "relative";
+        block.appendChild(button);
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", setupCopyButtons, { once: true });
+    document.addEventListener("astro:page-load", setupCopyButtons);
+
+    if (document.readyState !== "loading") {
+      setupCopyButtons();
+    }
+  </script>
+</Layout>
