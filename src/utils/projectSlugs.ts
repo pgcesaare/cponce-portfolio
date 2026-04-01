@@ -1,4 +1,9 @@
+export type ProjectLanguage = "en" | "es";
+
 export const localizedProjectFilePattern = /\.(en|es)\.(md|mdx)$/;
+
+export const isLocalizedProjectId = (projectId: string) =>
+  localizedProjectFilePattern.test(projectId);
 
 export const getProjectBaseSlug = (projectId: string) =>
   projectId.replace(localizedProjectFilePattern, "");
@@ -6,5 +11,13 @@ export const getProjectBaseSlug = (projectId: string) =>
 export const getProjectLanguageFromId = (projectId: string) => {
   const match = projectId.match(localizedProjectFilePattern);
 
-  return match?.[1] === "es" ? "es" : "en";
+  if (match?.[1] === "es") {
+    return "es";
+  }
+
+  if (match?.[1] === "en") {
+    return "en";
+  }
+
+  return null;
 };

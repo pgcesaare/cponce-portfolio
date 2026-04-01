@@ -7,25 +7,11 @@ interface Props {
 const { title } = Astro.props
 
 import ProjectsExplorer from "./ProjectsExplorer.jsx";
-import { getCollection } from "astro:content";
-import {
-    getProjectBaseSlug,
-    getProjectLanguageFromId
-} from "../../utils/projectSlugs";
+import { getLocalizedProjects } from "../../utils/projects";
 
 const currentLanguage = Astro.url.pathname.startsWith("/es") ? "es" : "en";
 
-const posts = (await getCollection("projects"))
-    .filter((project) => getProjectLanguageFromId(project.id) === currentLanguage)
-    .filter((project, index, projects) => {
-        const baseName = getProjectBaseSlug(project.id);
-
-        return (
-            projects.findIndex(
-                (candidate) => getProjectBaseSlug(candidate.id) === baseName
-            ) === index
-        );
-    });
+const posts = await getLocalizedProjects(currentLanguage);
 
 const labels =
     currentLanguage === "es"
@@ -66,7 +52,7 @@ const serializedPosts = posts.map((project) => ({
     ),
     title: project.data.title,
     description: project.data.description,
-    href: `/${currentLanguage}/projects/${getProjectBaseSlug(project.id)}`,
+    href: `/${currentLanguage}/projects/${project.slug}`,
     tags: project.data.tags
 }));
 ---

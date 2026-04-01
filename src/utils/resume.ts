@@ -3,7 +3,7 @@ import path from "node:path";
 
 export type ResumeLanguage = "en" | "es";
 
-const resumeRootDirectory = path.join(process.cwd(), "public", "resume");
+const resumeRootDirectory = path.join(process.cwd(), "public", "uploads", "resume");
 
 export const getResumePath = (lang: ResumeLanguage) => {
   const resumeDirectory = path.join(resumeRootDirectory, lang);
@@ -12,10 +12,10 @@ export const getResumePath = (lang: ResumeLanguage) => {
     .find((file) => file.toLowerCase().endsWith(".pdf"));
 
   if (!resumeFile) {
-    return `/resume/${lang}`;
+    return `/uploads/resume/${lang}`;
   }
 
-  return `/resume/${lang}/${encodeURIComponent(resumeFile)}`;
+  return `/uploads/resume/${lang}/${encodeURIComponent(resumeFile)}`;
 };
 
 export const getResumePaths = () => ({

@@ -1,24 +1,19 @@
 ---
-import type { GetStaticPaths, CollectionEntry } from "astro";
-import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
 
 import ProjectPage from "../../../templates/ProjectPage.astro";
-import { getProjectBaseSlug, getProjectLanguageFromId } from "../../../utils/projectSlugs";
-
-type ProjectPost = CollectionEntry<"projects">;
+import { getLocalizedProjects, type UploadedProject } from "../../../utils/projects";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const projects = await getCollection("projects");
+  const projects = await getLocalizedProjects("es");
 
-  return projects
-    .filter((project) => getProjectLanguageFromId(project.id) === "es")
-    .map((project) => ({
-      params: { slug: getProjectBaseSlug(project.id) },
+  return projects.map((project) => ({
+      params: { slug: project.slug },
       props: { project }
     }));
 };
 
-const { project } = Astro.props as { project: ProjectPost };
+const { project } = Astro.props as { project: UploadedProject };
 const labels = {
   eyebrow: "Proyecto",
   publishedLabel: "Publicado",

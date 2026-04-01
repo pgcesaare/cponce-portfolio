@@ -1,6 +1,4 @@
 ---
-import type { CollectionEntry } from "astro:content";
-
 import Layout from "../layouts/Layout.astro";
 import Aside from "../layouts/Aside.astro";
 import ContentWrapper from "../layouts/Content.astro";
@@ -9,12 +7,12 @@ import Chip from "../components/general/Chip.astro";
 import ChipContainer from "../components/general/ChipContainer.astro";
 import BackButton from "../components/general/BackButton.astro";
 import { siteContent } from "../data/siteContent";
+import type { UploadedProject } from "../utils/projects";
 
-type ProjectPost = CollectionEntry<"projects">;
 type Locale = "en" | "es";
 
 interface Props {
-  project: ProjectPost;
+  project: UploadedProject;
   locale: Locale;
   homeHref: string;
   labels: {
@@ -35,7 +33,6 @@ interface Props {
 }
 
 const { project, locale, homeHref, labels } = Astro.props;
-const { Content } = await project.render();
 const { title, description, image, tags, links = {}, date } = project.data;
 const content = siteContent[locale];
 const publishedDate = date.toLocaleDateString(locale === "es" ? "es-MX" : "en-US", {
@@ -129,9 +126,7 @@ const resourceEntries = Object.entries(links).map(([label, href]) => {
           <h2 class="text-title-h3 text-primary">{labels.articleTitle}</h2>
         </div>
 
-        <div class="project-content">
-          <Content />
-        </div>
+        <div class="project-content" set:html={project.html} />
       </section>
 
       {resourceEntries.length > 0 && (
