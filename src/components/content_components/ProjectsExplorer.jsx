@@ -133,7 +133,7 @@ const ProjectsExplorer = ({ title, posts, labels }) => {
             <div className="relative">
               <input
                 id="project-search"
-                type="search"
+                type="text"
                 value={searchQuery}
                 placeholder={labels.searchPlaceholder}
                 className="w-full rounded-xl border border-border-default bg-bg-elevated px-4 py-3 pr-12 text-principal-text text-primary outline-none transition-colors placeholder:text-secondary focus:border-accent-primary"
